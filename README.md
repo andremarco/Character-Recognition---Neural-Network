@@ -34,16 +34,18 @@ The final layer of the convolutional block is a Dropout with a low probability (
 At this stage we add another block with a similar structure of the previous one, characterized by a convolutional layer with 256 filters and 2x2 kernel size and two Max Pooling layers, both with size 2x2.
 The last Max Pooling layer is followed by a flatten layer, in order to obtain a linear output, and a Dropout with probability thershold setted at 50%.
 The droput layer is directly linked to the four dense output layers, with the folowing structure:
-• output_char: 94 neurons
-• output_font: 11 neurons
-• output_bold: 1 neuron
-• output_italics: 1 neuron
+
+* output_char: 94 neurons
+* output_font: 11 neurons
+* output_bold: 1 neuron
+* output_italics: 1 neuron
 
 We train our algorithm with batch size equal to 3000 so that, in each epoch, the parameters are updated every 3000 obervations. We use 20 epochs, that is the maximum possible, in order to run the script in approx 900 seconds. We also use a validation testset, in order to optimize the hyperparameter.
 
 In our model we use the Adam optimizer function, that is an extension of the stochastic gradient descent. We set the learning rate of the Adam optimizer equal to 0.002 (default value). We also tried to use other optimizers, such that SGD (specifying parameters as decay and momentum, trying to replicate the optimizer used in a famous and well-perfomer NN), Adagrad and Adadelta, but Adam always give us the better performance.
 
 In defining and configuring the model we tried over 100 different architectures for our Neural Network, always experiencing some critical issues with overfitting. In order to avoid overfitting we applyied some functions such as:
+
 • Dropout: at each training stage, individual nodes are either dropped out of the net with probability 1-p or kept with probability p. Usually the droput is used in the fully connected layer. Anyway, as Gal & Ghahramani (2016) wrote, it’s possible to avoid overfitting using dropout also in the convolutional layer, using small probability values.
 • BatchNormalization: to reduce the amount by what the hidden unit values shift around. The resulting parameters are centered around zero with variance 1 (we maintain the default values for the parameters)
 • L1 loss function: to add a regularization term in order to prevent the coefficients to fit so perfectly to overfit. The L1 loss function works on the sum of the weights.
