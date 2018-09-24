@@ -55,12 +55,14 @@ In defining and configuring the model we tried over 100 different architectures 
 Before applying the prediction function, we need to normalize the hidden test dataset. We use this technique in order to rescale the image values in the range 0-1.
 
 The results of the prediction have to be analyzed in two different ways:
+
 - font and char: the output of the model is a series of probability values, so that for each possible
 class the result is a value in the range 0-1 and the sum of all the classes is equal to 1. This result is possible because of the softmax activation function, used in the output layer.
 - Bold and italics: : the output of the model is a number between 0-1. If that value is bigger than 0.5, we classify it as 1, on the other hand as 0. In this case we use the sigmoid activation function for the output layer. The number 1 means that the selected image is bold or italics.
 
 The final result for the complete test dataset is saved in the Partial_result.csv file.
 The submitted model has a global accuracy of 0.4621224210646301, and its detailed accuracy for each area is:
+
 • Char: 0.459592
 • Font: 0.273111
 • Bold: 0.650405
@@ -68,11 +70,13 @@ The submitted model has a global accuracy of 0.4621224210646301, and its detaile
 
 This results show that the reached level obtained for the char is acceptable (the random probability to select the correct character is 0.01%), but we surealy could perform better for italics because the final accuracy is not far from a completely random classification. The font accuracy (0.273), even with more complex model applied, does not move to better values. Anyway this result is better than the 0.9 that could be obtained randomly pick a font. Probably font and italics are complex features to be modelled by the applied NN. We tried to fix this problem by using more complex models, and the performance registred are a very good level of accuracy in the validation dataset, but a maximum of 0.41 in the test. Assuming that this results are due to overfitting, we opted to apply a simpler model, in order to have a better control of the parameter behaviour.
 The final CNN submitted model reachs these results in the validation set:
+
 • val_output_font_acc: 0.0938
 • val_output_char_acc: 0.7203
 • val_output_bold_acc: 0.6665
 • val_output_italics_acc: 0.6738
-Extra Points
+
+## Extra Points
 In order to complete the Extra-Points, we created a new model with intermediate outputs and the same weights of the trained model, in order to deeply understand the behaviour of the hidden layers. The intermediate outputs are saved in .png format, and the code used to save the images is stored in the main.py file.
 In the image_intermediate_1.png it’s possible to visualize the behaviour of the first convolutional layer. We report 128 images (one for each filter) and each filter tries to model a different features of the image.
 Regarding image_intermediate_2.png it’s possible to understand how the output layer decides how to classify the font for the selected image.
